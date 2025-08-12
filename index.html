@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minecraft Animated Blocks</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://c.tenor.com/YR8BDhjkNNIAAAAd/minecraft-satisfying.gif') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 0;
+    }
+
+    .minecraft-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 2;
+      position: relative;
+      width: max-content;
+      align-items: center;
+    }
+
+    .minecraft-btn {
+      display: inline-block;
+      padding: 20px 40px;
+      font-size: 18px;
+      text-transform: uppercase;
+      font-family: 'Press Start 2P', monospace;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(45deg, #6b8e23, #9acd32);
+      border: 4px solid transparent;
+      border-image: linear-gradient(45deg, #9acd32, #00ff88, #6b8e23) 1;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+      animation: pulseGlow 2.5s infinite alternate, borderShift 4s linear infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+    }
+
+    .minecraft-btn::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #00ff88, #9acd32, #6b8e23, #00ff88);
+      background-size: 300% 300%;
+      filter: blur(6px);
+      z-index: -1;
+      animation: glowMove 5s linear infinite;
+    }
+
+    .minecraft-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.9);
+    }
+
+    .minecraft-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px rgba(0, 255, 136, 0.6); }
+      100% { box-shadow: 0 0 30px rgba(0, 255, 136, 1); }
+    }
+
+    @keyframes borderShift {
+      0% { border-image: linear-gradient(45deg, #9acd32, #00ff88, #6b8e23) 1; }
+      50% { border-image: linear-gradient(45deg, #00ff88, #6b8e23, #9acd32) 1; }
+      100% { border-image: linear-gradient(45deg, #9acd32, #00ff88, #6b8e23) 1; }
+    }
+
+    @keyframes glowMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="minecraft-buttons" id="buttons-container">
+    <button class="minecraft-btn" id="show-backups-btn">Minecraft Backup Downloads</button>
+  </div>
+
+  <script>
+    const container = document.getElementById('buttons-container');
+    const showBackupsBtn = document.getElementById('show-backups-btn');
+
+    showBackupsBtn.addEventListener('click', () => {
+      // Remove the clicked button
+      showBackupsBtn.remove();
+
+      // Add backup download buttons
+      const backups = [
+        { href: "https://www.mediafire.com/file/di3pytgijncvqod/NekoV1Edition_NPEB.pkg", text: "Download Neko V1 NPEB", download: true },
+        { href: "https://drive.usercontent.google.com/download?id=15e-yZVx-UMLpGdvDvyYzzfMfuMRzKwyX&export=download&authuser=0", text: "Neko V2 (BETA) Test" }
+      ];
+
+      backups.forEach(item => {
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.text;
+        a.className = 'minecraft-btn';
+        if (item.download) a.setAttribute('download', '');
+        container.appendChild(a);
+      });
+    });
+  </script>
+</body>
+</html>
